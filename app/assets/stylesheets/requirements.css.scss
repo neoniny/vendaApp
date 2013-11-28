@@ -1,0 +1,100 @@
+// Place all the styles related to the requirements controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+
+//Item definition toggle
+#toggle{width:100%; margin:0 auto;}
+#toggle hr {width:100%;}
+#toggle li{list-style-type:none; cursor:pointer;}
+#toggle ul div{color: #666666; cursor: auto; display: none; padding: 5px 0 5px 20px;}
+#toggle li:before {content: " "; background-image: url("/img/dim.png"); background-repeat: no-repeat; background-position: center; padding:10px; color:red; font-weight:bold;}
+#toggle li.active:before {content: " "; background-image: url("/img/down.png"); background-repeat: no-repeat; background-position: center; padding:10px; color:red; font-weight:bold;}
+
+#login{
+	width:50%;
+	margin:0 auto;
+	border: 1px solid #dedede;
+	border-radius: 10px; 
+	padding: 10px;
+	padding-left: 30px;
+}
+
+#confirm{
+	color:#FF0000;
+}
+
+//datashow (for show information after save)
+.datashow{
+	color:#333;font-family:Arial,sans-serif;font-size:14px;line-height:1.42857142857143;
+	background: #fff; 
+	overflow: hidden; 
+	border-radius: 3px; 
+	width: 100%;
+	text-align: center;
+	margin:0px;padding:0px;
+}
+.datashow table td, .datashow table th { 
+	padding: 10px 10px; 
+	vertical-align:top;
+}
+.datashow table tbody td { 
+	color: #00557F; 
+	border: 1px solid #dedede;
+	font-weight:normal; 
+}
+.datashow table tbody td:first-child { 
+	color: #e5e5e5; 
+	background-color:#0092D2;
+	font-weight:bold; 
+	width:30%
+}
+.datashow table{
+    border-collapse: collapse;
+    border-spacing: 0;
+	width:100%;
+	height:100%;
+	margin:0px;padding:0px;
+
+}
+.datashow td{
+	vertical-align:middle;
+	
+	background-color:#ffffff;
+
+	border:1px solid #dedede;
+	border-width:0px 1px 1px 0px;
+	text-align:left;
+	padding:8px;
+	font-weight:normal;
+	color:#000000;
+}
+
+
+//dataindex (for show all list)
+.dataindex table { 
+	border-collapse: collapse; 
+	text-align: left; 
+	border: 1px solid #dedede;
+} 
+.dataindex{
+	color:#333;font-family:Arial,sans-serif;font-size:14px;line-height:1.42857142857143;
+	background: #fff; 
+	overflow: hidden; 
+	width: 100%;
+}
+.dataindex table thead th {
+	border: 1px solid #dedede;
+	background-color:#0092D2; 
+	color:#FFFFFF; font-weight: bold;
+	text-align: center;
+	padding: 10px 10px; 
+} 
+.dataindex table thead th:first-child { border: none; }
+
+.dataindex table td, .dataindex table th { 
+	padding: 1px 10px; 
+	vertical-align:top;
+}
+.dataindex table tbody td { color: #00557F; border: 1px solid #dedede;font-weight:normal; }

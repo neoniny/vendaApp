@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ref: MyString
+  name: MyString
+  interface_type: MyString
+  definition: MyText
+
+two:
+  ref: MyString
+  name: MyString
+  interface_type: MyString
+  definition: MyText

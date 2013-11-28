@@ -1,0 +1,41 @@
+<h1>Listing item_defs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Requirement</th>
+      <th>Request type</th>
+      <th>Api version</th>
+      <th>Batch</th>
+      <th>Transport type</th>
+      <th>Notification</th>
+      <th>Encryption</th>
+      <th>Job frequency</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @item_defs.each do |item_def| %>
+      <tr>
+        <td><%= item_def.requirement_id %></td>
+        <td><%= item_def.request_type %></td>
+        <td><%= item_def.api_version %></td>
+        <td><%= item_def.batch %></td>
+        <td><%= item_def.transport_type %></td>
+        <td><%= item_def.notification %></td>
+        <td><%= item_def.encryption %></td>
+        <td><%= item_def.job_frequency %></td>
+        <td><%= link_to 'Show', item_def %></td>
+        <td><%= link_to 'Edit', edit_item_def_path(item_def) %></td>
+        <td><%= link_to 'Destroy', item_def, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Item def', new_item_def_path %>

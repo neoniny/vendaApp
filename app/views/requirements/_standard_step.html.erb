@@ -1,0 +1,19 @@
+<% api_hash=session[:api_param_hash] %>
+<h2>Standard API selection</h2>
+<p>Client Name: <%= session[:client_name] %> </p>
+    <p>
+      Standard APIs:
+  </p>
+    <% @standard = Interface.where("api_type='standard'").order('id') %>
+    <p>
+
+      <% @standard.each do |s| %>
+      <input type="checkbox" id= "<%= s.id %>" name= "<%= s.id %>" 
+        <% if api_hash["#{s.id}"] == 1 %>
+          checked="true"
+        <% end %>
+      >
+      
+      <%= label_tag s.api_name %><br>
+      <% end %>
+  </p>

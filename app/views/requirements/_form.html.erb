@@ -1,0 +1,25 @@
+<%= form_for(@requirement) do |f| %>
+  <% if @requirement.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@requirement.errors.count, "error") %> prohibited this requirement from being saved:</h2>
+
+      <ul>
+      <% @requirement.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= render "#{@requirement.current_step}_step", :f => f %>
+
+  <div class="actions">
+    <div class="backbnt">
+    <%= f.submit "<< Back", :name => "back_button" unless @requirement.first_step? || @requirement.current_step == 'itemdef'%>
+    </div>
+    <div class="conbnt">
+    <%= f.submit "Continue" unless @requirement.current_step == 'itemdef' || @requirement.last_step? %>
+    <%= f.submit "Confirm" if @requirement.last_step? %>
+    </div>
+  </div>
+
+<% end %>

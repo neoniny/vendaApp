@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  api_ref: MyString
+  tier3: MyString
+  tier2: MyString
+  tier1: MyString
+
+two:
+  api_ref: MyString
+  tier3: MyString
+  tier2: MyString
+  tier1: MyString

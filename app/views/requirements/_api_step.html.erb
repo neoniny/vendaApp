@@ -1,0 +1,25 @@
+  <h2>Interface selection</h2>
+  <div class="field">
+    <p>
+	    Batch APIs:
+	</p>
+    <% @batch = InterfaceList.where("api_type='batch'").order('id') %>
+    <p>
+	    <% @batch.each do |b| %>
+	    <%= check_box_tag b.ref %>
+		<%= label_tag b.api_name %><br>
+	    <% end %>
+	</p>
+	<p>
+	    Standard APIs:
+	</p>
+    <% @standard = InterfaceList.where("api_type='standard'").order('id') %>
+    <p>
+	    <% @standard.each do |s| %>
+	    <%= check_box_tag s.ref %>
+		<%= label_tag s.api_name %><br>
+	    <% end %>
+	</p>
+
+
+  </div>

@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Api version:</strong>
+  <%= @interface.api_version %>
+</p>
+
+<p>
+  <strong>Api ref:</strong>
+  <%= @interface.api_ref %>
+</p>
+
+<p>
+  <strong>Api name:</strong>
+  <%= @interface.api_name %>
+</p>
+
+<p>
+  <strong>Api type:</strong>
+  <%= @interface.api_type %>
+</p>
+
+<p>
+  <strong>Ymlname:</strong>
+  <%= @interface.ymlname %>
+</p>
+
+<%= link_to 'Edit', edit_interface_path(@interface) %> |
+<%= link_to 'Back', interfaces_path %>

@@ -1,0 +1,9 @@
+
+  <h2>Select Client</h2>
+  <div class="field">
+  	<p>
+    Client Name:
+    <%= f.collection_select :entprs_name, Client.all, :entprs_name, :client_name, :selected => session[:entprs_name] %>
+</p>
+  </div>
+or <%= link_to 'create new client?', new_client_path %>

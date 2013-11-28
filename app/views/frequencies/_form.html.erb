@@ -1,0 +1,33 @@
+<%= form_for(@frequency) do |f| %>
+  <% if @frequency.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@frequency.errors.count, "error") %> prohibited this frequency from being saved:</h2>
+
+      <ul>
+      <% @frequency.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :api_ref %><br>
+    <%= f.text_field :api_ref %>
+  </div>
+  <div class="field">
+    <%= f.label :tier3 %><br>
+    <%= f.text_field :tier3 %>
+  </div>
+  <div class="field">
+    <%= f.label :tier2 %><br>
+    <%= f.text_field :tier2 %>
+  </div>
+  <div class="field">
+    <%= f.label :tier1 %><br>
+    <%= f.text_field :tier1 %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

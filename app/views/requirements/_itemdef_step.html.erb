@@ -1,0 +1,113 @@
+<h2>Configurable items defining</h2>
+* Click each interface to expand
+<% 
+  #prerequire for item definition
+  api_hash=session[:api_param_hash].sort
+	formcount = 0
+  # Destroy the previous item_def form in order to create new one from hash
+  @requirement.item_defs :_destroy
+  @requirement.item_defs.build
+
+  api_hash.each {|key, value| 
+   if value == 1
+   unless session[:item_param][key.to_i] 
+   session[:item_param][key.to_i] = Hash.new 
+  end
+%>
+
+<div id="toggle">
+  
+	<% formcount += 1 %>
+  <%= f.fields_for :item_defs do |builder| %>
+  <div style="display:none">
+    <% @interface = Interface.where("id='#{key}'").first %>
+    <%= builder.text_field :interface_id, :value => @interface.id %>
+	  <%= builder.text_field :request_type, :value => "Request new batch" %>
+  </div>
+  <ul>
+    <hr>
+      <% @batch = Interface.where("id='"+"#{key}"+"'").first %>
+      <li><%= @batch.api_name %> </li>
+      <div>
+          <h4>Transpot type:</h4>
+          <% if session[:item_param][key.to_i]["transport_type"] == 'SFTP' %>
+            <%= builder.radio_button :transport_type, 'FTP' %> FTP </br>
+            <%= builder.radio_button :transport_type, 'SFTP', :checked=> true%> SFTP 
+          <% else %>
+            <%= builder.radio_button :transport_type, 'FTP', :checked=> true %> FTP </br>
+            <%= builder.radio_button :transport_type, 'SFTP'%> SFTP 
+          <% end %>
+
+          <h4>Notification Option:</h4>
+          <% if session[:item_param][key.to_i]["notification"] == 'FTP' %>
+            <%= builder.radio_button :notification, 'Email'%> Email </br>
+            <%= builder.radio_button :notification, 'FTP' , :checked => true %> FTP 
+          <% else %>
+            <%= builder.radio_button :notification, 'Email', :checked => true %> Email </br>
+            <%= builder.radio_button :notification, 'FTP' %> FTP 
+          <% end %>
+
+          <h4>Encryption / Decryption:</h4>
+          <% if session[:item_param][key.to_i]["encryption"] == 'PGP/GPG' %>
+            <%= builder.radio_button :encryption, 'None'%> None </br>
+            <%= builder.radio_button :encryption, 'PGP/GPG' , :checked => true   %> PGP/GPG
+          <% else %>
+            <%= builder.radio_button :encryption, 'None', :checked => true   %> None </br>
+            <%= builder.radio_button :encryption, 'PGP/GPG' %> PGP/GPG
+          <% end %>
+
+          <h4>Job Frequency</h4>
+          <% freq = Frequency.where("api_ref='"+@batch.api_ref+"'").first %>
+          <% if freq %>
+
+            <%= builder.radio_button :job_frequency, freq.tier3 %> <%= freq.tier3 %><br>
+            <%= builder.radio_button :job_frequency, freq.tier2 %> <%= freq.tier2 %><br>
+            <%= builder.radio_button :job_frequency, freq.tier1 %> <%= freq.tier1 %><br>
+            <%= builder.radio_button :job_frequency, "other"%>
+            Other: <INPUT TYPE="text" ID="job_frequency_<%= formcount -1%>" NAME="selected" onClick="checkSelect(<%= formcount - 1%>)">
+          <%else%>
+          
+          <% end %>
+      </div>
+      <div style="visibility:hidden">
+        <%= builder.check_box :_destroy %><%= builder.label :_destroy, "Remove Question" %></br>
+      </div>
+  <% end %>
+</div>
+
+<% end %>
+<% } %>
+
+  <div class="backbnt">
+    <!--<button onclick="check()" name = "back_button"><< Back </button>-->
+    <%= f.submit "<< Back", :onclick =>"check()", :name => "back_button"%>
+  </div>
+  <div class="conbnt">
+    <%= f.submit "Continue"%>
+  </div>
+
+<script>
+function check(){
+	var count = <%= formcount %>;
+	for (var i=0; i< count; i++){
+		document.getElementById("requirement_item_defs_attributes_"+i+"__destroy").checked=true;
+	}
+}
+function checkSelect(current){
+  document.getElementById("requirement_item_defs_attributes_"+current+"_job_frequency_other").checked=true;
+}
+</script>
+<script>
+    $(document).ready(function() {
+        $("li").click(function(){
+            $(this).toggleClass("active");
+            $(this).next("div").stop('true','true').slideToggle("fast");
+        });
+    });
+</script>
+<script type="text/javascript">
+function donation_value(the_form){
+    var val = 0;
+}
+
+</script>

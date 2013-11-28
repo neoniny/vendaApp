@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Api ref:</strong>
+  <%= @frequency.api_ref %>
+</p>
+
+<p>
+  <strong>Tier3:</strong>
+  <%= @frequency.tier3 %>
+</p>
+
+<p>
+  <strong>Tier2:</strong>
+  <%= @frequency.tier2 %>
+</p>
+
+<p>
+  <strong>Tier1:</strong>
+  <%= @frequency.tier1 %>
+</p>
+
+<%= link_to 'Edit', edit_frequency_path(@frequency) %> |
+<%= link_to 'Back', frequencies_path %>

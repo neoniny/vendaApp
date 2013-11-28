@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  api_version: MyString
+  api_ref: MyString
+  api_name: MyString
+  api_type: MyString
+  ymlname: MyString
+
+two:
+  api_version: MyString
+  api_ref: MyString
+  api_name: MyString
+  api_type: MyString
+  ymlname: MyString

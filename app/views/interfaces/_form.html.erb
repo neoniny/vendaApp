@@ -1,0 +1,40 @@
+<%= form_for(@interface) do |f| %>
+  <% if @interface.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@interface.errors.count, "error") %> prohibited this interface from being saved:</h2>
+
+      <ul>
+      <% @interface.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :api_version %><br>
+    <%= f.radio_button :api_version, '5' %> API Version 5 <br>
+    <%= f.radio_button :api_version, '4' %> API Version 4 <br>
+    <%= f.radio_button :api_version, '3' %> API Version 3 <br>
+  </div>
+  <div class="field">
+    <%= f.label :api_ref %><br>
+    <%= f.text_field :api_ref %>
+  </div>
+  <div class="field">
+    <%= f.label :api_name %><br>
+    <%= f.text_field :api_name %>
+  </div>
+  <div class="field">
+    <%= f.label :api_type %><br>
+    <%= f.radio_button :api_type, 'batch' %> Batch API <br>
+    <%= f.radio_button :api_type, 'standard' %> Standard API <br>
+  </div>
+  <div class="field">
+    <%= f.label :ymlname %><br>
+    <%= f.text_field :ymlname %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

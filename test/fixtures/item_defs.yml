@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  requirement_id: MyString
+  request_type: MyString
+  api_version: MyString
+  batch: MyString
+  transport_type: MyString
+  notification: MyString
+  encryption: MyString
+  job_frequency: MyString
+
+two:
+  requirement_id: MyString
+  request_type: MyString
+  api_version: MyString
+  batch: MyString
+  transport_type: MyString
+  notification: MyString
+  encryption: MyString
+  job_frequency: MyString

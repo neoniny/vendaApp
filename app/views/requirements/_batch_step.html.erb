@@ -1,0 +1,108 @@
+<% 
+    api_hash=session[:api_param_hash] 
+    
+%>
+<h2>Interface selection</h2>
+<div class="field">
+<p>Client Name: <%= session[:client_name] %> </p>
+Batch API Version:<br>
+<select id="api_version" name="api_version" onchange="leaveChange()">
+    <option value="5"
+    <% if session[:version_param] == "5" %>
+        selected
+    <%end%>
+    >API v5 - Code versions 5.3.61 and above</option>
+    <option value="4"
+    <% if session[:version_param] =="4" %>
+        selected
+    <%end%>
+    >API v4 - Code versions 5.3.57 to 5.3.61</option>
+    <option value="3"
+    <% if session[:version_param] =="3" %>
+        selected
+    <%end%>
+    >API v3 - Code versions 5.3.35 to 5.3.55</option>
+</select>
+
+</div>
+
+<div id="apiSelect">
+    <div>
+        <div>
+            <div id="option5">
+                <p>Batch APIs V.5:</p>
+                <% @batch = Interface.where("api_version='5'").order('id') %>
+                <p>
+                    <% @batch.each do |b| %>
+                        <input type="checkbox" id= "<%= b.id %>" name= "<%= b.id %>" 
+                        <% if session[:api_param_hash]["#{b.id}"]==1 %>
+                          checked="true"
+                        <% end %>
+                        >
+                        <%= label_tag b.api_name %><br>
+                    <% end %>
+                </p>
+            </div>
+            <div id="option4">
+               <p>Batch APIs:</p>
+                <% @batch = Interface.where("api_version='4'").order('id') %>
+                <p>
+                    <% @batch.each do |b| %>
+                        <input type="checkbox" id= "<%= b.id %>" name= "<%= b.id %>" 
+                        <% if session[:api_param_hash]["#{b.id}"] == 1 %>
+                          checked="true"
+                        <% end %>
+                        >
+                        <%= label_tag b.api_name %><br>
+                    <% end %>
+                </p>
+            </div>
+            <div id="option3">
+                <p>Batch APIs:</p>
+                <% @batch = Interface.where("api_version='3'").order('id') %>
+                <p>
+                    <% @batch.each do |b| %>
+                        <input type="checkbox" id= "<%= b.id %>" name= "<%= b.id %>" 
+                        <% if session[:api_param_hash]["#{b.id}"] == 1 %>
+                          checked="true"
+                        <% end %>
+                        >
+                        <%= label_tag b.api_name %><br>
+                    <% end %>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="message"></div>
+<script>
+    //show selected form version from session
+    selectShow(<%= session[:version_param] %>)
+    //show selected form version from onchange select
+    $("select").change(function () {
+    var str = "";
+    str = parseInt($("select option:selected").val());
+    selectShow(str);
+
+    <% session[:api_param_hash].each_key do |a| %>
+        <% unless session[:standard_all].include? a.to_i %>
+        document.getElementById(<%= a.to_i %>).checked=false;
+        <% session[:api_param_hash].delete(a) %>
+        <% end %>
+    <% end %>
+    });//end onchange
+
+    //select which div will show
+    function selectShow(str) {
+        if(str >= 0){
+            $("#apiSelect").show();
+            for(var i = 5; i > 2; i--)
+                 $("#option" + i).hide();
+            $("#option" + str).show();
+            }
+        else
+            $("#apiSelect").hide();
+    }
+</script>

@@ -1,0 +1,13 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Client name:</strong>
+  <%= @client.client_name %>
+</p>
+
+<p>
+  <strong>Entprs name:</strong>
+  <%= @client.entprs_name %>
+</p>
+<% session[:requirement_step] = 'client' %>
+<%= link_to 'Back to Requirement', new_requirement_path %>

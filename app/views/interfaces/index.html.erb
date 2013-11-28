@@ -1,0 +1,126 @@
+<h1>Listing interfaces</h1>
+
+<div class="myBox">
+    <input type = "checkbox" id = "Banana" value = "Banana" />
+    <input type = "checkbox" id = "Orange" value = "Orange" />
+    <input type = "checkbox" id = "Apple" value = "Apple" />
+    <input type = "checkbox" id = "Papaya" value = "Papaya" />
+    <input type = "checkbox" id = "Watermelon" value = "Watermelon" />
+    <input type = "checkbox" id = "Grape" value = "Grape" />
+</div>
+
+<div id="display">
+</div>
+
+
+
+<table>
+  <thead>
+    <tr>
+      <th>Api version</th>
+      <th>Api ref</th>
+      <th>Api name</th>
+      <th>Api type</th>
+      <th>Ymlname</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @interfaces.each do |interface| %>
+      <tr>
+        <td><%= interface.api_version %></td>
+        <td><%= interface.api_ref %></td>
+        <td><%= interface.api_name %></td>
+        <td><%= interface.api_type %></td>
+        <td><%= interface.ymlname %></td>
+        <td><%= link_to 'Show', interface %></td>
+        <td><%= link_to 'Edit', edit_interface_path(interface) %></td>
+        <td><%= link_to 'Destroy', interface, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Interface', new_interface_path %>
+
+<div class="tabsContainer">
+      <ul class="tabs">
+        <li class="active">Tab 1</li>
+        <li>Tab 2</li>
+        <li>Tab 3</li>
+      </ul>
+      <div class="tabcontent active">Content for Tab 1</div>
+      <div class="tabcontent">Content for Tab 2</div>
+      <div class="tabcontent">Content for Tab 3</div>
+    </div>
+    <br/>
+
+
+
+<script src="jquery-1.9.0.min.js"></script>
+<script>
+  $('.tabsContainer').ready(function(e) {
+    $(this).find('ul.tabs li').click(function() {
+      var index = $(this).index();
+      $(this).addClass('active').siblings('li').removeClass('active');
+      $(this).parent('.tabs').siblings('.tabcontent').removeClass('active').eq(index).addClass('active'); 
+    });
+  });
+</script>    
+
+
+<script type="text/javascript">
+ $('.myBox  input:checkbox').change(function(){
+  var tempValue='';
+tempValue=$('.myBox  input:checkbox:checked').map(function(n){  //map all the checked value to tempValue with `,` seperated
+            return  this.value;
+   }).get().join(',');
+
+   $('#display').html(tempValue);
+})
+</script>
+
+
+<div id="toggle">
+    <ul>
+        <li>Youtube Video Scraping</li>
+        <div>
+                Always I wondered to display youtube videos below my posts or for some other purpose. But always had to use some plugins or some complicated scripts. So finally coded for you people a small function which will fetch or scrape...<a href="http://webstutorial.com/youtube-video-scraping-fetch-youtube-video-through-rss/programming/php">Continue reading</a>
+        </div>
+        <li>WordPress Multiple Category Search</li>
+            <div>
+                Since when I started wordpress, I had a question in my mind, why wordpress doesn’t give multiple search option? I googled a lot, but couldn’t find a plugin or code which exactly works. So finally decided to go more into...<a href="http://webstutorial.com/wordpress-multiple-category-search/content-management-system-cms/wordpress-cms">Continue reading</a>
+            </div>
+         
+        <li>Youtube Video Scraping</li>
+            <div>
+                Always I wondered to display youtube videos below my posts or for some other purpose. But always had to use some plugins or some complicated scripts. So finally coded for you people a small function which will fetch or scrape...<a href="http://webstutorial.com/youtube-video-scraping-fetch-youtube-video-through-rss/programming/php">Continue reading</a>
+            </div>
+         
+        <li>Ten WordPress Useful Functions And Snippets</li>
+            <div>
+                Some useful WordPress PHP funtions. Just copy and paste these functions in your themes functions.php file Change the WP Login Logo & URL Link Load JQuery From Google CDN How to remove the WordPress Version Information Remove Default WordPress Meta...<a href="http://webstutorial.com/ten-wordpress-useful-functions/content-management-system-cms/wordpress-cms">Continue reading</a>
+            </div>
+         
+        <li>A Good PHP Developer Can Answer This | PHP Test</li>
+            <div>
+                PHP developers go through 3 stages in their life Beginner Good Best A beginner PHP coder is some one who just started making some PHP projects in CMS like WordPress, Joomla, Magento and other PHP based CMS. A good PHP... <a href="http://webstutorial.com/good-php-developer-answer-php-test/programming/php">Continue reading</a>
+            </div>
+         
+    </ul>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $("li").click(function(){
+            $(this).toggleClass("active");
+            $(this).next("div").stop('true','true').slideToggle("slow");
+        });
+    });
+
+    </script>

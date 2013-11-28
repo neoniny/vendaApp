@@ -1,0 +1,75 @@
+<p id="notice"><%= notice %></p>
+<h1>Venda Requirement Application (Standard APIs)</h1>
+
+<div class="datashow">
+  <table>
+    <tbody>
+      <tr>
+        <td>Requirement id:</td>
+        <td><%= @requirement.id %></td>
+      </tr>
+      <tr>
+        <td>Client name:</td>
+        <% @client=Client.where("entprs_name='"+@requirement.entprs_name+"'").first %>
+        <td><%= @client.client_name %></td>
+      </tr>
+      <tr>
+        <td>Request type:</td>
+        <td>Request new batch</td>
+      </tr>
+      <tr>
+        <td>Api version:</td>
+        <td>
+          <% 
+            @item = @requirement.item_defs.first 
+            @version = Interface.where("id='"+@item.interface_id+"'").first
+          %><%= @version.api_version %></td>
+      </tr>
+      <tr>
+        <td>Require batch:</td>
+        <td>
+        	<ul>
+        		<% for item_def in @requirement.item_defs 
+        				@batch = Interface.where("id='"+item_def.interface_id+"'").first %>
+        		<li><%= @batch.api_name %>
+        		<% end%>
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>Configured items definition</h2>
+<% for item_def in @requirement.item_defs %>
+  <% @batch = Interface.where("id='"+item_def.interface_id+"'").first %>
+  <h3><%= @batch.api_name %></h3>
+  <div class="datashow">
+    <table>
+      <tbody>
+        <tr>
+          <td>Transport type:</td>
+          <td><%= h item_def.transport_type %></td>
+        </tr>
+        <tr>
+          <td>Notification Option:</td>
+          <td><%= h item_def.notification %></td>
+        </tr>
+        <tr>
+          <td>Encryption / Decryption:</td>
+          <td><%= h item_def.encryption %></td>
+        </tr>
+        <tr>
+          <td>Job Frequency:</td>
+          <td><%= h item_def.job_frequency %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+
+    
+<div id="mybnt">
+<br>
+<a href=<%= new_requirement_path%>>New Request</a>
+</div>

@@ -1,0 +1,75 @@
+<% api_hash=session[:api_param_hash] %>
+<%= @requirement.item_defs.inspect %>
+<div id="confirm">*Please confirm the following information.</div>
+<div class="datashow">
+  <table>
+    <tbody>
+      <tr>
+        <td>Client name:</td>
+        <td><%= session[:client_name] %></td>
+      </tr>
+      <tr>
+        <td>Request type:</td>
+        <td>Request new batch</td>
+      </tr>
+      <tr>
+        <td>Api version:</td>
+        <td><%= session[:version_param]  %></td>
+      </tr>
+      <tr>
+        <td>Require batch:</td>
+        <td>
+          <ul>
+      		<% for item_def in @requirement.item_defs 
+      				@batch = Interface.where("id='"+item_def.interface_id+"'").first %>
+      		<li><%= @batch.api_name %>
+      		<% end%>
+          </ul></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>Configured items definition</h2>
+
+<% for item_def in @requirement.item_defs %>
+<%= item_def.inspect %>
+<div class="datashow">
+	<% @batch = Interface.where("id='"+item_def.interface_id+"'").first %>
+	<h3><%= @batch.api_name %></h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>Transport type:</td>
+        <td><%= h item_def.transport_type %></td>
+      </tr>
+      <tr>
+        <td>Notification Option:</td>
+        <td><%= h item_def.notification %></td>
+      </tr>
+      <tr>
+        <td>Encryption / Decryption:</td>
+        <td><%= h item_def.encryption %></td>
+      </tr>
+      <tr>
+        <td>Job Frequency:</td>
+        <td><%= h item_def.job_frequency %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<% end %>
+
+
+<% 
+item_hash = Hash.new 
+for item_def in @requirement.item_defs 
+  @batch = Interface.where("id='"+item_def.interface_id+"'").first
+  item_hash[@batch.id]=Hash.new
+  item_hash[@batch.id]["transport_type"] = item_def.transport_type
+  item_hash[@batch.id]["notification"] = item_def.notification
+  item_hash[@batch.id]["encryption"] = item_def.encryption
+  item_hash[@batch.id]["job_frequency"] = item_def.job_frequency
+end 
+session[:item_param]=item_hash
+%>

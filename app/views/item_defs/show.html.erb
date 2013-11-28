@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Requirement:</strong>
+  <%= @item_def.requirement_id %>
+</p>
+
+<p>
+  <strong>Request type:</strong>
+  <%= @item_def.request_type %>
+</p>
+
+<p>
+  <strong>Api version:</strong>
+  <%= @item_def.api_version %>
+</p>
+
+<p>
+  <strong>Batch:</strong>
+  <%= @item_def.batch %>
+</p>
+
+<p>
+  <strong>Transport type:</strong>
+  <%= @item_def.transport_type %>
+</p>
+
+<p>
+  <strong>Notification:</strong>
+  <%= @item_def.notification %>
+</p>
+
+<p>
+  <strong>Encryption:</strong>
+  <%= @item_def.encryption %>
+</p>
+
+<p>
+  <strong>Job frequency:</strong>
+  <%= @item_def.job_frequency %>
+</p>
+
+<%= link_to 'Edit', edit_item_def_path(@item_def) %> |
+<%= link_to 'Back', item_defs_path %>

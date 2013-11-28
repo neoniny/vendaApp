@@ -1,0 +1,17 @@
+<% api_hash=session[:api_param_hash] %>
+<%= api_hash %>
+<p>
+    Batch APIs:
+</p>
+<% @batch = InterfaceList.where("api_type='batch'").order('id') %>
+<p>
+    <% @batch.each do |b| %>
+		<input type="checkbox" id= "<%= b.ref %>" name= "<%= b.ref %>" 
+        <% if api_hash[b.ref] == 1 %>
+          checked="true"
+        <% end %>
+      	>
+		<%= label_tag b.api_name %><br>
+    <% end %>
+</p>
+</div>

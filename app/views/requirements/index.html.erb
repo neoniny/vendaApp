@@ -1,0 +1,32 @@
+
+<h1>Listing requirements</h1>
+
+<%= link_to 'New Requirement', new_requirement_path %>
+
+<br><br><br>
+<div class ="dataindex">
+<table>
+  <thead>
+    <tr>
+      <th>Requirement ID</th>
+      <th>Client name</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @requirements.each do |requirement| %>
+      <tr>
+        <td><%= requirement.id %></td>
+        <td><%= requirement.entprs_name %></td>
+        <td><%= link_to 'Show', requirement %></td>
+        <td><%= link_to 'Destroy', requirement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+<br>
+
+
