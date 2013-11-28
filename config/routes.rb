@@ -1,10 +1,18 @@
 VendaApp::Application.routes.draw do
+  get "sessions/new"
   resources :frequencies
 
   resources :interfaces
 
+  resources :sessions
+
+  get "log_in" => "sessions#new", :as => "log_in"
+  get "log_out" => "sessions#destroy", :as => "log_out"
+
+
   get "welcome/index"
   root "welcome#index"
+  
   resources :item_defs
 
   resources :interface_lists

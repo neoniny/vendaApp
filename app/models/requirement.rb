@@ -13,7 +13,7 @@ class Requirement < ActiveRecord::Base
   
   def steps
    # %w[client batch standard itemdef confirm ]
-    %w[client batch standard itemdef confirm ]
+    %w[client batch standard itemdef confirm]
   end
     
   def next_step

@@ -1,0 +1,22 @@
+<br>
+
+	<%= form_tag sessions_path do %>
+	<div id="login">
+		<h2>Log in session</h2>
+		<hr>
+		<table align="center">
+			<tr>
+				<td>Username:</td>
+				<td><%= text_field_tag :username, params[:username] %><div id="message_user"></div></td>
+			</tr>
+			<tr>
+				<td>Password:</td>
+				<td><%= password_field_tag :password %><div id="message_pass"></div></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><%= submit_tag "Login", :onclick => "check_all"%></td>
+			</tr>
+		</table>
+	</div>
+	<% end %>

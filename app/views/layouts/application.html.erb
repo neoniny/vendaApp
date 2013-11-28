@@ -10,12 +10,19 @@
 <div id="nav">
 	<ul id="nav">
 		<li><a href=<%= welcome_index_path%>><img src="/img/atl.site.logo.png" height="25"></a></li>
-		<li><%= link_to 'New Requirement', new_requirement_path %></li>
+		<!--<% if current_user %><li><%= link_to 'New Requirement', new_requirement_path %></li><% end %>-->
 	</ul>
 </div>
 <br>
-
-	<div id="content">
+  <div id="user_nav">
+    <% if current_user %>
+      Logged in as <%= current_user %>
+      <%= link_to "Log out", log_out_path %>
+    <% else %>
+      <%= link_to "Log in", log_in_path %>
+    <% end %>
+  </div>
+  <div id="content">
 		<%= yield %>
 	</div>
 

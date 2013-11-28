@@ -6,20 +6,13 @@
 
 //Item definition toggle
 #toggle{width:100%; margin:0 auto;}
-#toggle hr {width:100%;}
+#toggle hr {width:100%; border: 1 solid #fff ;}
 #toggle li{list-style-type:none; cursor:pointer;}
 #toggle ul div{color: #666666; cursor: auto; display: none; padding: 5px 0 5px 20px;}
-#toggle li:before {content: " "; background-image: url("/img/dim.png"); background-repeat: no-repeat; background-position: center; padding:10px; color:red; font-weight:bold;}
-#toggle li.active:before {content: " "; background-image: url("/img/down.png"); background-repeat: no-repeat; background-position: center; padding:10px; color:red; font-weight:bold;}
+#toggle li:before {content: " "; background-image: url("/img/dim.png"); background-repeat: no-repeat; background-position: center; padding:10px; font-weight:bold;}
+#toggle li.active:before {content: " "; background-image: url("/img/down.png"); background-repeat: no-repeat; background-position: center; padding:10px;  font-weight:bold;}
 
-#login{
-	width:50%;
-	margin:0 auto;
-	border: 1px solid #dedede;
-	border-radius: 10px; 
-	padding: 10px;
-	padding-left: 30px;
-}
+
 
 #confirm{
 	color:#FF0000;

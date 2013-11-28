@@ -1,5 +1,4 @@
 <% api_hash=session[:api_param_hash] %>
-<%= @requirement.item_defs.inspect %>
 <div id="confirm">*Please confirm the following information.</div>
 <div class="datashow">
   <table>
@@ -29,11 +28,13 @@
     </tbody>
   </table>
 </div>
+<div style="visibility:hidden">
+<%= f.text_field :creater, :value => current_user %>
+</div>
 
 <h2>Configured items definition</h2>
 
 <% for item_def in @requirement.item_defs %>
-<%= item_def.inspect %>
 <div class="datashow">
 	<% @batch = Interface.where("id='"+item_def.interface_id+"'").first %>
 	<h3><%= @batch.api_name %></h3>

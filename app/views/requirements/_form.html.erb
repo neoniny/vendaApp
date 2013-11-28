@@ -20,6 +20,9 @@
     <%= f.submit "Continue" unless @requirement.current_step == 'itemdef' || @requirement.last_step? %>
     <%= f.submit "Confirm" if @requirement.last_step? %>
     </div>
+    <div class="cancel" >
+    <%= link_to 'Cancel', requirements_path %>
+    </div>
   </div>
 
 <% end %>

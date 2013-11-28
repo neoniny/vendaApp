@@ -16,30 +16,26 @@ class RequirementsController < ApplicationController
   # GET /requirements/new
   def new
     #@requirement = Requirement.new
-    
-    session[:requirement_params] ||= {}
-    @requirement = Requirement.new(session[:requirement_params])
-    session[:requirement_step] = 'client'
-    @requirement.current_step = session[:requirement_step]
-    @api = Interface.all 
-    api_hash = Hash.new 
-    item_hash = Hash.new 
-    @standard_list = []
+    if current_user
+      session[:requirement_params] ||= {}
+      @requirement = Requirement.new(session[:requirement_params])
+      session[:requirement_step] = 'client'
+      @requirement.current_step = session[:requirement_step]
+      @api = Interface.all 
+      api_hash = Hash.new 
+      item_hash = Hash.new 
+      @standard_list = []
+      session[:api_param_hash] = api_hash
+      session[:item_param] = item_hash
 
-    # @api.each do |arr|
-    #   api_hash_temp = {"#{arr.ref}" => 0}
-    #   api_hash.merge!(api_hash_temp)
-    # end
-     session[:api_param_hash] = api_hash
-     session[:item_param] = item_hash
-
-    @standard = Interface.where("api_type='standard'")
-    @standard.each do |s| 
-        @standard_list.push s.id
+      @standard = Interface.where("api_type='standard'")
+      @standard.each do |s| 
+          @standard_list.push s.id
+      end
+      session[:standard_all]=@standard_list
+    else
+      redirect_to log_in_path
     end
-    session[:standard_all]=@standard_list
-
-
   end
 
   # GET /requirements/1/edit
@@ -63,7 +59,7 @@ class RequirementsController < ApplicationController
       if params[:back_button]
         @requirement.previous_step
       elsif @requirement.last_step?
-          @requirement.save
+        @requirement.save
       else
         
         @requirement.next_step
@@ -105,8 +101,10 @@ class RequirementsController < ApplicationController
             count = 0;
             for item_def in @requirement.item_defs
               if item_def.job_frequency == 'other'
-                item_def.job_frequency = params[:job_frequency_{count}]
+                current = "job_frequency_"+count.to_s
+                item_def.job_frequency = params["#{current}"]
               end
+              count += 1
             end
           end #end set other
           #save session of itemdef

@@ -85,7 +85,6 @@ Batch API Version:<br>
     var str = "";
     str = parseInt($("select option:selected").val());
     selectShow(str);
-
     <% session[:api_param_hash].each_key do |a| %>
         <% unless session[:standard_all].include? a.to_i %>
         document.getElementById(<%= a.to_i %>).checked=false;
