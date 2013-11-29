@@ -6,22 +6,29 @@
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 </head>
+<script type="text/javascript">
+function alertMSG(str){
+  alert(str);
+}
+</script>
 <body>
 <div id="nav">
 	<ul id="nav">
 		<li><a href=<%= welcome_index_path%>><img src="/img/atl.site.logo.png" height="25"></a></li>
-		<!--<% if current_user %><li><%= link_to 'New Requirement', new_requirement_path %></li><% end %>-->
+
 	</ul>
 </div>
 <br>
   <div id="user_nav">
     <% if current_user %>
       Logged in as <%= current_user %>
-      <%= link_to "Log out", log_out_path %>
+      <%= link_to "Log out", log_out_path unless session[:requirement_step] == 'confirm' %>
+      <%= link_to "Log out", new_requirement_path, :onclick => "alertMSG('You cannot log out from confirmation page, please confirm or edit your information before log out.')" if session[:requirement_step] == 'confirm' %>
     <% else %>
       <%= link_to "Log in", log_in_path %>
     <% end %>
   </div>
+  <br>
   <div id="content">
 		<%= yield %>
 	</div>

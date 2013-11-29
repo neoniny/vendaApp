@@ -138,18 +138,13 @@ a:hover {
 	top:1px;
 	color: #fff;
 }
-.backbnt, .conbnt{
+.backbnt, .conbnt, .cancel{
 	padding-right: 5px;
 	margin-top: 10px;
 	display:inline-table;
 	float: left;
 }
-.cancel{
-	margin-right: 5px;
-	margin-top: 15px;
-	display:inline-table;
-	float: left;
-}
+
 .backbnt input[type=submit] {
 	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
 	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
@@ -169,8 +164,6 @@ a:hover {
 	display:inline-block;
 	padding:5px 10px;
 	color:#666666;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #ffffff;
 }
 
 .backbnt input[type=submit]:hover {
@@ -193,8 +186,19 @@ a:hover {
     -moz-box-shadow: 0 0 2px #DDDDDD;
     -webkit-box-shadow: 0 0 2px #DDDDDD;
     box-shadow: 0 0 2px #DDDDDD;
-
 }
+
+.cancel input[type=submit], .cancel input[type=button] {
+	background-color:#fff;
+	border:0px;
+	display:inline-block;
+	padding:5px 10px;
+	color:#FF7700;
+}
+.cancel input[type=submit]:hover, .cancel input[type=button]:hover{
+	text-decoration: underline;
+}
+
 .awesome-text-box:hover
 {
     border:1px solid #cccccc;

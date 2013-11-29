@@ -42,6 +42,7 @@
 
 <h2>Configured items definition</h2>
 <% for item_def in @requirement.item_defs %>
+
   <% @batch = Interface.where("id='"+item_def.interface_id+"'").first %>
   <h3><%= @batch.api_name %></h3>
   <div class="datashow">

@@ -1,6 +1,6 @@
 class RequirementsController < ApplicationController
   before_action :set_requirement, only: [:show, :edit, :update, :destroy]
-  before_filter :check_for_cancel, :only => [:create, :update]
+  before_filter :check_for_cancel, :only => [:create, :update, :destroy]
 
   # GET /requirements
   # GET /requirements.json
@@ -17,15 +17,20 @@ class RequirementsController < ApplicationController
   def new
     #@requirement = Requirement.new
     if current_user
+
       session[:requirement_params] ||= {}
       @requirement = Requirement.new(session[:requirement_params])
-      session[:requirement_step] = 'client'
+      if session[:requirement_params]["creater"] == current_user
+        session[:requirement_step] ||= 'client'
+      else
+        session[:requirement_step] = 'client'
+      end
       @requirement.current_step = session[:requirement_step]
       @api = Interface.all 
       api_hash = Hash.new 
       item_hash = Hash.new 
       @standard_list = []
-      session[:api_param_hash] = api_hash
+      session[:api_param_hash] ||= api_hash
       session[:item_param] = item_hash
 
       @standard = Interface.where("api_type='standard'")
@@ -34,7 +39,7 @@ class RequirementsController < ApplicationController
       end
       session[:standard_all]=@standard_list
     else
-      redirect_to log_in_path
+      redirect_to log_in_path, :notice => "Please log in first!"
     end
   end
 
@@ -58,10 +63,11 @@ class RequirementsController < ApplicationController
     if @requirement.valid?
       if params[:back_button]
         @requirement.previous_step
+      elsif params[:cancel_button]
+        @requirement.current_step = "client"
       elsif @requirement.last_step?
         @requirement.save
       else
-        
         @requirement.next_step
         #get batch API parameter from check box
         #hash 0-no 1-checked
@@ -87,6 +93,9 @@ class RequirementsController < ApplicationController
           end #end batch
           #after 'standard' click next -> 'itemdef'
           if @requirement.current_step == 'itemdef' 
+            session[:standard_select] = params[:standard_button]
+            
+
             @api_batch = Interface.where("api_type='standard'")
             @api_batch.each do |arr|
               if params["#{arr.id}"]

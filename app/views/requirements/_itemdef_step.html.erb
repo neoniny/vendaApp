@@ -58,26 +58,31 @@
           <% freq = Frequency.where("api_ref='"+@batch.api_ref+"'").first %>
           <% if freq 
             current_freq = session[:item_param][key.to_i]["job_frequency"] %>
-            <% if current_freq == freq.tier3 || !current_freq %>
-              <%= builder.radio_button :job_frequency, freq.tier3, :checked => true, :onclick => "otherCheck(\'"+freq.tier3+"\',"+formcount.to_s+')' %>
-            <% else %>
-              <%= builder.radio_button :job_frequency, freq.tier3, :onclick => "otherCheck(\'"+freq.tier3+"\',"+formcount.to_s+')' %>
-            <% end %>
-            <%= freq.tier3 %><br>
+              <% if current_freq == freq.tier3 || !current_freq %>
+                <%= builder.radio_button :job_frequency, freq.tier3, :checked => true, :onclick => "otherCheck(\'"+freq.tier3+"\',"+formcount.to_s+')' %>
+              <% else %>
+                <%= builder.radio_button :job_frequency, freq.tier3, :onclick => "otherCheck(\'"+freq.tier3+"\',"+formcount.to_s+')' %>
+              <% end %>
+              <%= freq.tier3 %><br>
 
-            <% if current_freq == freq.tier2 %>
-              <%= builder.radio_button :job_frequency, freq.tier2, :checked => true , :onclick => "otherCheck(\'"+freq.tier2+"\',"+formcount.to_s+')'%>
-            <% else %>
-              <%= builder.radio_button :job_frequency, freq.tier2 , :onclick => "otherCheck(\'"+freq.tier2+"\',"+formcount.to_s+')'%>
-            <% end %>
-            <%= freq.tier2 %><br>
 
-            <% if current_freq == freq.tier1 %>
-              <%= builder.radio_button :job_frequency, freq.tier1, :checked => true, :onclick => "otherCheck(\'"+freq.tier1+"\',"+formcount.to_s+')' %>
-            <% else %>
-              <%= builder.radio_button :job_frequency, freq.tier1, :onclick => "otherCheck(\'"+freq.tier1+"\',"+formcount.to_s+')' %>
-            <% end %>
-            <%= freq.tier1 %><br>
+              <% if freq.tier2 != freq.tier3 %>
+                <% if current_freq == freq.tier2 %>
+                  <%= builder.radio_button :job_frequency, freq.tier2, :checked => true , :onclick => "otherCheck(\'"+freq.tier2+"\',"+formcount.to_s+')'%>
+                <% else %>
+                  <%= builder.radio_button :job_frequency, freq.tier2 , :onclick => "otherCheck(\'"+freq.tier2+"\',"+formcount.to_s+')'%>
+                <% end %>
+                <%= freq.tier2 %><br>
+              <% end %>
+
+              <% if freq.tier1 != freq.tier3 && freq.tier1 != freq.tier2 %>
+                <% if current_freq == freq.tier1 %>
+                  <%= builder.radio_button :job_frequency, freq.tier1, :checked => true, :onclick => "otherCheck(\'"+freq.tier1+"\',"+formcount.to_s+')' %>
+                <% else %>
+                  <%= builder.radio_button :job_frequency, freq.tier1, :onclick => "otherCheck(\'"+freq.tier1+"\',"+formcount.to_s+')' %>
+                <% end %>
+                <%= freq.tier1 %><br>
+              <% end %>
 
             <% if !current_freq %>
               <%= builder.radio_button :job_frequency, "other" %> Other: 
@@ -88,7 +93,7 @@
             <% else %>
               <% if current_freq != freq.tier3 && current_freq != freq.tier2 && current_freq != freq.tier1 %>
                 <%= builder.radio_button :job_frequency, "other" , :checked => true %> Other: 
-                <INPUT TYPE="text" ID="job_frequency_<%= formcount%>" NAME="job_frequency_<%= formcount%>" value="<%= current_freq %>" onClick="checkSelect(<%= formcount - 1%>)" placeholder="<frequency>">
+                <INPUT TYPE="text" ID="job_frequency_<%= formcount%>" NAME="job_frequency_<%= formcount%>" value="<%= current_freq %>" onClick="checkSelect(<%= formcount%>)" placeholder="<frequency>">
               <% else %>
                 <%= builder.radio_button :job_frequency, "other" %> Other: 
                 <INPUT TYPE="text" ID="job_frequency_<%= formcount%>" NAME="job_frequency_<%= formcount%>" onClick="checkSelect(<%= formcount%>)" placeholder="<frequency>">
@@ -100,7 +105,7 @@
               
           <%else%>
             <%= builder.radio_button :job_frequency, "other", :checked => true %> Other: 
-            <INPUT TYPE="text" ID="job_frequency_<%= formcount%>" NAME="job_frequency_<%= formcount%>" value="<%= current_freq %>" onClick="checkSelect(<%= formcount - 1%>)" placeholder="<frequency>">
+            <INPUT TYPE="text" ID="job_frequency_<%= formcount%>" NAME="job_frequency_<%= formcount%>" value="<%= current_freq %>" onClick="checkSelect(<%= formcount%>)" placeholder="<frequency>">
             <div style="visibility:hidden">
               <%= builder.text_field :job_frequency, :value => "<frequency>" %>
             </div>
@@ -108,7 +113,7 @@
 
       </div>
       <div style="visibility:hidden">
-        <%= builder.check_box :_destroy %><%= builder.label :_destroy, "Remove Question" %></br>
+        <%= builder.check_box :_destroy %><%= builder.label :_destroy, "Remove" %></br>
       </div>
   <% end %>
 </div>
@@ -129,7 +134,13 @@
     <%= f.submit "Continue", :onclick => "setOther()"%>
     <% end %>
   </div>
-
+  <div class="cancel">
+    <%= submit_tag "Cancel", :onclick =>"checkCancel()", :type => "button" %>
+  </div>
+  <div style="visibility:hidden">
+    <%= submit_tag "Clear", :onclick =>"check()", :type => "button", :id=>"clear_items" %>
+    <%= submit_tag "Cancel", :name => "cancel_button", :id=>"cancel_back" %>
+  </div>
 
 <script>
 function check(){
@@ -145,15 +156,8 @@ function check(){
 }
 
 function checkCancel(){
-  var count = <%= formcount %>;
-  for (var i=0; i< count; i++){
-    document.getElementById("requirement_item_defs_attributes_"+i+"__destroy").checked=true;
-    if (document.getElementById("requirement_item_defs_attributes_"+i+"_job_frequency_other").checked == true){
-      var_getbox = document.getElementById("job_frequency_"+i)
-      val_savebox = document.getElementById("requirement_item_defs_attributes_"+i+"_job_frequency");
-      val_savebox.value = var_getbox.value;
-    }
-  }
+  document.getElementById("clear_items").click();
+  document.getElementById("cancel_back").click();
 }
 
 function checkSelect(current){
@@ -189,10 +193,4 @@ function setOther(){
             $(this).next("div").stop('true','true').slideToggle("fast");
         });
     });
-</script>
-<script type="text/javascript">
-function donation_value(the_form){
-    var val = 0;
-}
-
 </script>

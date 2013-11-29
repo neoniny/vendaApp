@@ -1,19 +1,43 @@
 <% api_hash=session[:api_param_hash] %>
+<%= session[:standard_select] %>
 <h2>Standard API selection</h2>
 <p>Client Name: <%= session[:client_name] %> </p>
     <p>
-      Standard APIs:
+      <p class="cancel">Standard APIs: <input type="button" id="checked" value="Select All" onClick="selectAll()"> <input type="button" id="unchecked" value="Deselect All" onClick="deselectAll()"></p><br style="clear:both;">
   </p>
     <% @standard = Interface.where("api_type='standard'").order('id') %>
     <p>
 
       <% @standard.each do |s| %>
-      <input type="checkbox" id= "<%= s.id %>" name= "<%= s.id %>" 
+      <input type="checkbox" id= "<%= s.id %>" name= "<%= s.id %>" onclick="changeBnt()" 
         <% if api_hash["#{s.id}"] == 1 %>
           checked="true"
         <% end %>
       >
       
-      <%= label_tag s.api_name %><br>
+      <%= s.api_name %><br>
       <% end %>
   </p>
+
+
+<script>
+
+function selectAll(api){
+    <% @standard = Interface.where("api_type='standard'").order('id')%>
+    bnt = document.getElementById("checked");
+
+    <% @standard.each do |i| %>
+        document.getElementById(<%= "#{i.id}"%>).checked = true;
+    <% end %>
+}
+
+function deselectAll(api){
+    <% @standard = Interface.where("api_type='standard'").order('id')%>
+    bnt = document.getElementById("checked");
+
+    <% @standard.each do |i| %>
+        document.getElementById(<%= "#{i.id}"%>).checked = false;
+    <% end %>
+}
+
+</script>

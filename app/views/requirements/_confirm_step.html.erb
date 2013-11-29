@@ -1,3 +1,4 @@
+
 <% api_hash=session[:api_param_hash] %>
 <div id="confirm">*Please confirm the following information.</div>
 <div class="datashow">
@@ -28,39 +29,50 @@
     </tbody>
   </table>
 </div>
-<div style="visibility:hidden">
-<%= f.text_field :creater, :value => current_user %>
-</div>
+
 
 <h2>Configured items definition</h2>
 
-<% for item_def in @requirement.item_defs %>
-<div class="datashow">
-	<% @batch = Interface.where("id='"+item_def.interface_id+"'").first %>
-	<h3><%= @batch.api_name %></h3>
-  <table>
-    <tbody>
-      <tr>
-        <td>Transport type:</td>
-        <td><%= h item_def.transport_type %></td>
-      </tr>
-      <tr>
-        <td>Notification Option:</td>
-        <td><%= h item_def.notification %></td>
-      </tr>
-      <tr>
-        <td>Encryption / Decryption:</td>
-        <td><%= h item_def.encryption %></td>
-      </tr>
-      <tr>
-        <td>Job Frequency:</td>
-        <td><%= h item_def.job_frequency %></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<% formcount = 0 
+  for item_def in @requirement.item_defs %>
+  <div class="datashow">
+  	<% @batch = Interface.where("id='"+item_def.interface_id+"'").first %>
+  	<h3><%= @batch.api_name %></h3>
+    <table>
+      <tbody>
+        <tr>
+          <td>Transport type:</td>
+          <td><%= h item_def.transport_type %></td>
+        </tr>
+        <tr>
+          <td>Notification Option:</td>
+          <td><%= h item_def.notification %></td>
+        </tr>
+        <tr>
+          <td>Encryption / Decryption:</td>
+          <td><%= h item_def.encryption %></td>
+        </tr>
+        <tr>
+          <td>Job Frequency:</td>
+          <td><%= h item_def.job_frequency %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="visibility:hidden">
+    <input id="requirement_item_defs_attributes_<%=formcount%>__destroy" name="requirement[item_defs_attributes][<%=formcount%>][_destroy]" type="checkbox" value="1"/>
+  </div>
+  <% formcount += 1 %>
 <% end %>
 
+<div style="color:#a0a0a0"><br>**Click back to edit</div>
+<!--   <div class="cancel">
+    <%= submit_tag "Cancel", :onclick =>"checkCancel()", :type => "button" %>
+  </div> -->
+  <div style="visibility:hidden">
+    <%= submit_tag "Clear", :onclick =>"check()", :type => "button", :id=>"clear_items" %>
+    <%= submit_tag "Cancel", :name => "cancel_button", :id=>"cancel_back" %>
+  </div> 
 
 <% 
 item_hash = Hash.new 
@@ -74,3 +86,18 @@ for item_def in @requirement.item_defs
 end 
 session[:item_param]=item_hash
 %>
+
+<script>
+function check(){
+  var count = <%= formcount %>;
+  for (var i=0; i< count; i++){
+    document.getElementById("requirement_item_defs_attributes_"+i+"__destroy").checked=true;
+  }
+}
+
+function checkCancel(){
+
+  document.getElementById("clear_items").click();
+  document.getElementById("cancel_back").click();
+}
+</script>
