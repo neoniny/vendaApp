@@ -5,7 +5,11 @@ class RequirementsController < ApplicationController
   # GET /requirements
   # GET /requirements.json
   def index
-    @requirements = Requirement.all
+    if current_user
+      @requirements = Requirement.all
+    else
+      redirect_to log_in_path, :notice => "Please log in first!"
+    end
   end
 
   # GET /requirements/1

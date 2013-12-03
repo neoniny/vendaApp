@@ -208,3 +208,6 @@ a:hover {
     box-shadow:0 0 2px #FFFE00;
 }
 
+.textlink a{
+	color: #333;
+}

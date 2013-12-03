@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131128120352) do
+ActiveRecord::Schema.define(version: 20131202072751) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,19 +28,14 @@ ActiveRecord::Schema.define(version: 20131128120352) do
     t.string "tier1"
   end
 
-  create_table "interface_lists", force: true do |t|
-    t.string "ref"
-    t.string "api_name"
-    t.string "api_type"
-    t.text   "definition"
-  end
-
   create_table "interfaces", force: true do |t|
     t.string "api_version"
     t.string "api_ref"
     t.string "api_name"
     t.string "api_type"
     t.string "ymlname"
+    t.string "url"
+    t.text   "short_description"
   end
 
   create_table "item_defs", force: true do |t|

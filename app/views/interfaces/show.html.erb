@@ -24,6 +24,14 @@
   <strong>Ymlname:</strong>
   <%= @interface.ymlname %>
 </p>
+<p>
+  <strong>URL:</strong>
+  <a href="<%= @interface.url %>" target="_new"><%= @interface.url %></a>
+</p>
+<p>
+  <strong>Description:</strong>
+  <%= @interface.short_description %>
+</p>
 
 <%= link_to 'Edit', edit_interface_path(@interface) %> |
 <%= link_to 'Back', interfaces_path %>

@@ -69,6 +69,6 @@ class InterfacesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def interface_params
-      params.require(:interface).permit(:api_version, :api_ref, :api_name, :api_type, :ymlname)
+      params.require(:interface).permit(:api_version, :api_ref, :api_name, :api_type, :ymlname, :url, :short_description)
     end
 end

@@ -1,5 +1,5 @@
 <h1>Listing interfaces</h1>
-
+<div class ="dataindex">
 <table>
   <thead>
     <tr>
@@ -8,6 +8,8 @@
       <th>Api name</th>
       <th>Api type</th>
       <th>Ymlname</th>
+      <th>URL</th>
+      <th>Description </th>
       <th></th>
       <th></th>
       <th></th>
@@ -22,6 +24,8 @@
         <td><%= interface.api_name %></td>
         <td><%= interface.api_type %></td>
         <td><%= interface.ymlname %></td>
+        <td><a href="<%= interface.url %>" target="_new"><%= interface.url %> </a> </td>
+        <td><%= interface.short_description %> </td>
         <td><%= link_to 'Show', interface %></td>
         <td><%= link_to 'Edit', edit_interface_path(interface) %></td>
         <td><%= link_to 'Destroy', interface, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -29,7 +33,7 @@
     <% end %>
   </tbody>
 </table>
-
+</div>
 <br>
 
 <%= link_to 'New Interface', new_interface_path %>
