@@ -5,12 +5,13 @@
 
 
 //Item definition toggle
-#toggle{width:100%; margin:0 auto; color: rgb(59, 115, 175)}
+#toggle{width:100%;}
 #toggle hr {border: 0;height: 1px;background: #000; }
-#toggle li{list-style-type:none; cursor:pointer;}
+#toggle ul {margin: 0; padding: 0; }
+#toggle li{list-style-type:none; cursor:pointer; list-style-position:none;}
 #toggle li:hover{text-decoration: underline;}
 #toggle ul div{color: #666666; cursor: auto; display: none; padding: 5px 0 5px 20px;}
-#toggle li:before {content: " "; background-image: url("/img/dim.png"); background-repeat: no-repeat; background-position: center; padding:10px; font-weight:bold;}
+#toggle li:before {content: " "; background-image: url("/img/dim.png"); background-repeat: no-repeat; background-position: center; padding:10px; font-weight:bold; }
 #toggle li.active:before {content: " "; background-image: url("/img/down.png"); background-repeat: no-repeat; background-position: center; padding:10px;  font-weight:bold;}
 
 
@@ -71,20 +72,25 @@
 	border-collapse: collapse; 
 	text-align: left; 
 	border: 1px solid #dedede;
+	//width: 100%;
 } 
 .dataindex{
 	color:#333;font-family:Arial,sans-serif;font-size:14px;line-height:1.42857142857143;
 	background: #fff; 
-	overflow: hidden; 
+	overflow-x: inherit;
+	//overflow: hidden; 
 	width: 100%;
 }
-.dataindex table thead th {
+.dataindex table thead th{
 	border: 1px solid #dedede;
 	background-color:#0092D2; 
 	color:#FFFFFF; font-weight: bold;
 	text-align: center;
 	padding: 10px 10px; 
 } 
+.dataindex table thead th a{
+	color:#FFFFFF;
+}
 .dataindex table thead th:first-child { border: none; }
 
 .dataindex table td, .dataindex table th { 

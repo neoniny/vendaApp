@@ -1,10 +1,12 @@
 class InterfacesController < ApplicationController
   before_action :set_interface, only: [:show, :edit, :update, :destroy]
+  before_filter :authorizeadmin, :authorizeuser
+  helper_method :sort_column, :sort_direction
 
   # GET /interfaces
   # GET /interfaces.json
   def index
-    @interfaces = Interface.all
+    @interfaces = Interface.order(sort_column + " " + sort_direction)
   end
 
   # GET /interfaces/1
@@ -71,4 +73,12 @@ class InterfacesController < ApplicationController
     def interface_params
       params.require(:interface).permit(:api_version, :api_ref, :api_name, :api_type, :ymlname, :url, :short_description)
     end
+
+    def sort_column
+      Interface.column_names.include?(params[:sort]) ? params[:sort] : "api_version"
+    end
+    
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+    end    
 end

@@ -1,5 +1,6 @@
 class ClientsController < ApplicationController
   before_action :set_client, only: [:show, :edit, :update, :destroy]
+  before_filter :authorizeuser
 
   # GET /clients
   # GET /clients.json
@@ -29,8 +30,13 @@ class ClientsController < ApplicationController
     
     respond_to do |format|
       if @client.save
-        format.html { redirect_to new_requirement_path, notice: 'Client was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @client }
+        if session[:requirement_step] == "client"
+          format.html { redirect_to new_requirement_path, notice: 'Client was successfully created.' }
+          format.json { render action: 'show', status: :created, location: @client }
+        else
+          format.html { redirect_to @client, notice: 'Client was successfully created.' }
+          format.json { render action: 'show', status: :created, location: @client }
+        end
       else
         format.html { render action: 'new' }
         format.json { render json: @client.errors, status: :unprocessable_entity }

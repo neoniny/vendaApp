@@ -14,15 +14,22 @@ function alertMSG(str){
 <body>
 <div id="nav">
 	<ul id="nav">
-		<li><a href=<%= welcome_index_path%>><img src="/img/atl.site.logo.png" height="25"></a></li>
-
+    <% if admin? %>
+    <li><a href=<%= admin_path%>><img src="/img/atl.site.logo.png" height="25"></a></li>
+    <li><a href=<%= requirements_path%>>Requirement</a></li>
+    <li><a href=<%= interfaces_path%>>Interface</a></li>
+    <li><a href=<%= frequencies_path%>>Interface Frequency</a></li>
+    <li><a href=<%= clients_path%>>Client</a></li>
+    <% else %>
+    <li><a href=<%= welcome_index_path%>><img src="/img/atl.site.logo.png" height="25"></a></li>
+    <% end %>
 	</ul>
 </div>
 <br>
   <div id="user_nav">
     <% if current_user %>
       Logged in as <%= current_user %>
-      <%= link_to "Log out", log_out_path unless session[:requirement_step] == 'confirm' %>
+      <%= link_to "Log out", log_out_path, data: { confirm: 'If you log out now your all information will be deleted. Are you sure to log out?' } unless session[:requirement_step] == 'confirm' %>
       <%= link_to "Log out", new_requirement_path, :onclick => "alertMSG('You cannot log out from confirmation page, please confirm or edit your information before log out.')" if session[:requirement_step] == 'confirm' %>
     <% else %>
       <%= link_to "Log in", log_in_path %>

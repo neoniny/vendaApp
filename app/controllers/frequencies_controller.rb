@@ -1,5 +1,6 @@
 class FrequenciesController < ApplicationController
   before_action :set_frequency, only: [:show, :edit, :update, :destroy]
+  before_filter :authorizeadmin, :authorizeuser
 
   # GET /frequencies
   # GET /frequencies.json

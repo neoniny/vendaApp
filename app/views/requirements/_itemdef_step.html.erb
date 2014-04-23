@@ -27,7 +27,7 @@
       <% @batch = Interface.where("id='"+"#{key}"+"'").first %>
       <li><%= @batch.api_name %> </li>
       <div>
-          <h4>Transpot type:</h4>
+          <p>Transpot type:<br>
           <% if session[:item_param][key.to_i]["transport_type"] == 'SFTP' %>
             <%= builder.radio_button :transport_type, 'FTP' %> FTP </br>
             <%= builder.radio_button :transport_type, 'SFTP', :checked=> true%> SFTP 
@@ -35,26 +35,27 @@
             <%= builder.radio_button :transport_type, 'FTP', :checked=> true %> FTP </br>
             <%= builder.radio_button :transport_type, 'SFTP'%> SFTP 
           <% end %>
+          </p>
 
-          <h4>Notification Option:</h4>
+          <p>Notification Option:<br>
           <% if session[:item_param][key.to_i]["notification"] == 'FTP' %>
             <%= builder.radio_button :notification, 'Email'%> Email </br>
             <%= builder.radio_button :notification, 'FTP' , :checked => true %> FTP 
           <% else %>
             <%= builder.radio_button :notification, 'Email', :checked => true %> Email </br>
             <%= builder.radio_button :notification, 'FTP' %> FTP 
-          <% end %>
+          <% end %></p>
 
-          <h4>Encryption / Decryption:</h4>
+          <p>Encryption / Decryption:<br>
           <% if session[:item_param][key.to_i]["encryption"] == 'PGP/GPG' %>
             <%= builder.radio_button :encryption, 'None'%> None </br>
             <%= builder.radio_button :encryption, 'PGP/GPG' , :checked => true   %> PGP/GPG
           <% else %>
             <%= builder.radio_button :encryption, 'None', :checked => true   %> None </br>
             <%= builder.radio_button :encryption, 'PGP/GPG' %> PGP/GPG
-          <% end %>
+          <% end %></p>
 
-          <h4>Job Frequency</h4>
+          <p>Job Frequency<br>
           <% freq = Frequency.where("api_ref='"+@batch.api_ref+"'").first %>
           <% if freq 
             current_freq = session[:item_param][key.to_i]["job_frequency"] %>
@@ -109,7 +110,7 @@
             <div style="visibility:hidden">
               <%= builder.text_field :job_frequency, :value => "<frequency>" %>
             </div>
-          <% end %>
+          <% end %></p>
 
       </div>
       <div style="visibility:hidden">
@@ -186,11 +187,4 @@ function setOther(){
   }
 }
 </script>
-<script>
-    $(document).ready(function() {
-        $("li").click(function(){
-            $(this).toggleClass("active");
-            $(this).next("div").stop('true','true').slideToggle("fast");
-        });
-    });
-</script>
+

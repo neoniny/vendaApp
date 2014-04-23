@@ -44,3 +44,4 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 gem 'activerecord-session_store', github: 'rails/activerecord-session_store'
+gem 'ransack'

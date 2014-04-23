@@ -1,4 +1,5 @@
 class WelcomeController < ApplicationController
+	before_filter :authorizeadmin, :only => [:admin]
  	def index
 		if current_user 
 			redirect_to new_requirement_path

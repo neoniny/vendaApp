@@ -1,8 +1,9 @@
+<p id="notice"><%= notice %></p>
 
-<h1>Listing requirements</h1>
+<h1>Listing Requirements</h1>
 
 <%= link_to 'New Requirement', new_requirement_path %>
-
+<% if admin? %>
 <br><br><br>
 <div class ="dataindex">
 <table>
@@ -10,6 +11,8 @@
     <tr>
       <th>Requirement ID</th>
       <th>Client name</th>
+      <th>Requester</th>
+      <th>Selected Interface</th>
       <th></th>
       <th></th>
     </tr>
@@ -19,14 +22,73 @@
     <% @requirements.each do |requirement| %>
       <tr>
         <td><%= requirement.id %></td>
-        <td><%= requirement.entprs_name %></td>
-        <td><%= link_to 'Show', requirement %></td>
-        <td><%= link_to 'Destroy', requirement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <% client = Client.where("entprs_name='"+requirement.entprs_name+"'").first %>
+          <%= client.client_name %></td>
+        <td><%= requirement.creater %></td>
+        <td>
+          <div id="toggle">
+            <ul>
+              <li>Click to see detail</li>
+              <div>                
+                <% @itemdef = ItemDef.where("requirement_id='"+requirement.id.to_s+"'") %>
+                <% @itemdef.each do |item| %>
+                <% itemname = Interface.where("id='"+item.interface_id+"'").first %>
+                - <%= itemname.api_name %><br>
+                <% end %>
+              </div>
+            </ul>
+          </div>
+        </td>
+        <td><%= link_to 'Show', requirement, :target => "_new" %></td>
+        <td><% if admin? %><%= link_to 'Destroy', requirement, method: :delete, data: { confirm: 'Are you sure?' } %><% end %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 </div>
+<% else %>
+
+<% @requirementview = Requirement.where("creater='"+current_user+"'") %>
+
+  <h3>Previously requested by <%= current_user %></h3>
+  <% if @requirementview.count != 0 %>
+    <div class ="dataindex">
+      <table><thead><tr><th>Requirement ID</th><th>Enterprise name</th><th>Selected Interface</th></tr></thead>
+      <% @requirementview.each do |re|%>
+      <% client = Client.where("entprs_name='"+re.entprs_name+"'").first %>
+      <tr><td><%= re.id %></td><td><%= client.client_name %></td><td>
+        <div id="toggle">
+          <ul>
+            <li>Click to see detail</li>
+            <div>                
+              <% @itemdef = ItemDef.where("requirement_id='"+re.id.to_s+"'") %>
+              <% @itemdef.each do |item| %>
+              <% itemname = Interface.where("id='"+item.interface_id+"'").first %>
+              - <%= itemname.api_name %><br>
+              <% end %>
+            </div>
+          </ul>
+        </div>
+
+      </td></tr>
+      <% end %>
+    </table>
+    </div>
+  <% else %>
+    No History from your request.
+  <% end %>
+
+<% end %>
+
 <br>
 
 
+<script>
+    $(document).ready(function() {
+        $("li").click(function(){
+            $(this).toggleClass("active");
+            $(this).next("div").stop('true','true').slideToggle("fast");
+        });
+    });
+</script>

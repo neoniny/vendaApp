@@ -11,6 +11,7 @@ VendaApp::Application.routes.draw do
 
 
   get "welcome/index"
+  get "admin" => "welcome#admin"
   root "welcome#index"
   
   resources :item_defs

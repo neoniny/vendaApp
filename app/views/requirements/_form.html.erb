@@ -1,4 +1,4 @@
-
+<p id="notice"><%= notice %></p>
 <%= form_for(@requirement) do |f| %>
   <% if @requirement.errors.any? %>
     <div id="error_explanation">
@@ -18,13 +18,54 @@
     <%= f.submit "<< Back", :name => "back_button" unless @requirement.first_step? || @requirement.current_step == 'itemdef'%>
     </div>
     <div class="conbnt">
-    <%= f.submit "Continue" unless @requirement.current_step == 'itemdef' || @requirement.last_step? %>
+    <%= f.submit "Continue" unless @requirement.current_step == 'itemdef' || @requirement.current_step == 'client' || @requirement.last_step? %>
     <%= f.submit "Confirm" if @requirement.last_step? %>
     </div>
     <div class="cancel" >
-    <%= f.submit "Cancel", :name => "cancel_button", data: { confirm: 'Are you sure to cancel?' } unless @requirement.current_step == 'itemdef' || @requirement.current_step == 'confirm'%>
+    <%= f.submit "Cancel", :name => "cancel_button", data: { confirm: 'Are you sure to cancel?' } unless @requirement.current_step == 'itemdef' || @requirement.current_step == 'confirm' %>
     <%= submit_tag "Cancel", :onclick =>"checkCancel()", :type => "button", data: { confirm: 'Are you sure to cancel?' } if @requirement.last_step?%>
     </div>
   </div>
 
+<% if @requirement.current_step == 'client' %>
+  <% @requirementview = Requirement.where("creater='"+current_user+"'") %>
+  <div id="listshow">
+    <br><hr>
+    <h3>Previously Requested by <%= current_user %></h3>
+    <% if @requirementview.count != 0 %>
+      <div class ="dataindex">
+        <table><thead><tr><th>Requirement ID</th><th>Enterprise name</th><th>Selected Interface</th></tr></thead>
+        <% @requirementview.each do |re|%>
+        <% client = Client.where("entprs_name='"+re.entprs_name+"'").first %>
+        <tr><td><%= re.id %></td><td><%= client.client_name %></td><td>
+          <div id="toggle">
+            <ul>
+              <li>Click to see detail</li>
+              <div>                
+                <% @itemdef = ItemDef.where("requirement_id='"+re.id.to_s+"'") %>
+                <% @itemdef.each do |item| %>
+                <% itemname = Interface.where("id='"+item.interface_id+"'").first %>
+                - <%= itemname.api_name %><br>
+                <% end %>
+              </div>
+            </ul>
+          </div>
+        </td></tr>
+        <% end %>
+      </table>
+      </div>
+    <% else %>
+      No History from your request.
+    <% end %>
+  </div>
+  <% end %>
+
 <% end %>
+<script>
+    $(document).ready(function() {
+        $("li").click(function(){
+            $(this).toggleClass("active");
+            $(this).next("div").stop('true','true').slideToggle("fast");
+        });
+    });
+</script>

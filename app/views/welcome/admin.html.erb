@@ -1,0 +1,70 @@
+<% session[:requirement_step] = nil %>
+<h2>Administrator</h2>
+<div id="left-admin">
+	<b>Create New </b><br>
+<%= link_to "New Requirement", new_requirement_path %><br>
+<%= link_to "New Interface", new_interface_path %><br>
+<%= link_to "New Interface Frequency", new_frequency_path %><br>
+<%= link_to "New Client", new_client_path %><br>
+</div>
+<div id="right-admin">
+	<div id="hightlight-admin">
+		<h3>Welcome to Venda Requirement Application (Standard APIs)</h3>
+	</div>
+	<div id="hightlight-admin">
+		<h3>Recent Requirement</h3>
+		<div class ="dataindex">
+		<table>
+		  <thead>
+		    <tr>
+		      <th>Requirement ID</th>
+		      <th>Client name</th>
+		      <th>Requester</th>
+		      <th>Selected Interface</th>
+		      <th></th>
+		    </tr>
+		  </thead>
+
+		  <tbody>
+		  	<% @requirements= Requirement.limit("5").order("id DESC") %>
+		    <% @requirements.each do |requirement| %>
+		      <tr>
+		        <td><%= requirement.id %></td>
+		        <td>
+		          <% client = Client.where("entprs_name='"+requirement.entprs_name+"'").first %>
+		          <%= client.client_name %></td>
+		        <td><%= requirement.creater %></td>
+		        <td>
+		          <div id="toggle">
+		            <ul>
+		              <li>Click to see detail</li>
+		              <div>                
+		                <% @itemdef = ItemDef.where("requirement_id='"+requirement.id.to_s+"'") %>
+		                <% @itemdef.each do |item| %>
+		                <% itemname = Interface.where("id='"+item.interface_id+"'").first %>
+		                - <%= itemname.api_name %><br>
+		                <% end %>
+		              </div>
+		            </ul>
+		          </div>
+		        </td>
+		        <td><%= link_to 'Show', requirement, :target => "_new" %></td>
+		      </tr>
+		    <% end %>
+		  </tbody>
+		</table>
+		</div>
+		<%= link_to 'view all', requirements_path %>
+	</div>
+
+
+</div>
+
+<script>
+    $(document).ready(function() {
+        $("li").click(function(){
+            $(this).toggleClass("active");
+            $(this).next("div").stop('true','true').slideToggle("fast");
+        });
+    });
+</script>

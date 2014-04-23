@@ -2,9 +2,42 @@
   <h2>Select Client</h2>
   <div class="field">
     Client Name:
-    <%= f.collection_select :entprs_name, Client.all, :entprs_name, :client_name, :selected => session[:entprs_name] %>
+    <%= f.collection_select :entprs_name, Client.all, :entprs_name, :client_name, :selected => session[:entprs_name], :include_blank => "<Please select>", :onchange => "hiddenBNT()"%> <br>or <%= link_to 'create new client?', new_client_path %>
   </div>
   <div style="visibility:hidden">
 <%= f.text_field :creater, :value => current_user %>
 </div>
-or <%= link_to 'create new client?', new_client_path %>
+<div id="confirm">*Please select client before go to next step.</div> 
+
+
+
+<div id="showbnt"  style="display:none;">
+ <div class="conbnt">
+    <%= f.submit "Continue"%>
+ </div>
+</div>
+
+
+
+<script type="text/javascript">
+selectbox=document.getElementById('requirement_entprs_name')
+	if (selectbox.value==""){
+		document.getElementById("showbnt").style.display = "none"
+		document.getElementById("confirm").style.display = "block"
+	}else{
+		document.getElementById("showbnt").style.display = "block"
+		document.getElementById("confirm").style.display = "none"
+	}
+
+selectbox.addEventListener('change',function()      
+{
+	if (selectbox.value==""){
+		document.getElementById("showbnt").style.display = "none"
+		document.getElementById("confirm").style.display = "block"
+	}else{
+		document.getElementById("showbnt").style.display = "block"
+		document.getElementById("confirm").style.display = "none"
+	}
+	
+});
+</script>

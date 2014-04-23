@@ -1,15 +1,16 @@
 class RequirementsController < ApplicationController
   before_action :set_requirement, only: [:show, :edit, :update, :destroy]
   before_filter :check_for_cancel, :only => [:create, :update, :destroy]
+  before_filter :authorizeuser
 
   # GET /requirements
   # GET /requirements.json
   def index
-    if current_user
+    #if current_user
       @requirements = Requirement.all
-    else
-      redirect_to log_in_path, :notice => "Please log in first!"
-    end
+    #else
+    #  redirect_to log_in_path, :notice => "Please log in first!"
+    #end
   end
 
   # GET /requirements/1
@@ -20,7 +21,7 @@ class RequirementsController < ApplicationController
   # GET /requirements/new
   def new
     #@requirement = Requirement.new
-    if current_user
+    #if current_user
 
       session[:requirement_params] ||= {}
       @requirement = Requirement.new(session[:requirement_params])
@@ -42,9 +43,9 @@ class RequirementsController < ApplicationController
           @standard_list.push s.id
       end
       session[:standard_all]=@standard_list
-    else
-      redirect_to log_in_path, :notice => "Please log in first!"
-    end
+    #else
+    #  redirect_to log_in_path, :notice => "Please log in first!"
+    #end
   end
 
   # GET /requirements/1/edit
@@ -130,7 +131,7 @@ class RequirementsController < ApplicationController
     if @requirement.new_record?
       render 'new' 
     else
-      session[:client_name] = session[:test] = session[:api_param_hash] =nil
+      session[:entprs_name] = session[:api_param_hash] =nil
       session[:api_param] = nil
       session[:requirement_step] = session[:requirement_params] = nil
       session[:item_param] = nil
